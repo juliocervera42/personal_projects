@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Boda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #556B2F;
+            --secondary-color: #6B8E23;
+            --accent-color: #8F9779;
+            --light-color: #F5F5F0;
+            --dark-color: #2F4F4F;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-color);
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animación del sello */
+        .seal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(253, 252, 246, 1) 0%, rgba(240, 235, 225, 1) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            cursor: pointer;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
+        }
+        
+        .seal-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+        
+        .seal {
+            width: 100%;
+            height: 100%;
+            background: url('https://p.turbosquid.com/ts-thumb/7D/3BbIeu/1P/goldenwaxseal_image/jpg/1730964402/1920x1080/fit_q87/bb4d9a037f63c721a175cf0e1b3edb57bb85a59d/goldenwaxseal_image.jpg') no-repeat center center;
+            background-size: cover;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            transform: scale(0.8);
+            transition: transform 0.5s ease-out;
+        }
+        
+        .seal:hover {
+            transform: scale(0.85);
+        }
+        
+        .seal-open .seal {
+            animation: sealBreak 1.2s forwards;
+        }
+        
+        @keyframes sealBreak {
+            0% {
+                transform: scale(0.8);
+                border-radius: 50%;
+            }
+            20% {
+                transform: scale(0.9);
+            }
+            40% {
+                transform: scale(0.8);
+            }
+            60% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(30);
+                border-radius: 0;
+                box-shadow: none;
+                opacity: 0;
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(rgba(85, 107, 47, 0.8), rgba(85, 107, 47, 0.8)),
+                        url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .header-content {
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        h1 {
+            font-family: 'Alex Brush', cursive;
+            font-size: 5.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        h2 {
+            font-family: 'Alex Brush', cursive;
+            font-size: 3rem;
+            margin: 20px 0;
+            color: var(--primary-color);
+        }
+        
+        h3 {
+            font-family: 'Alex Brush', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+        
+        .date-display {
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            margin: 30px 0;
+            font-weight: 300;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-box {
+            background-color: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            color: white;
+            padding: 25px 15px;
+            border-radius: 10px;
+            min-width: 100px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 500;
+        }
+        
+        .countdown-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 60px;
+        }
+        
+        .section-title:after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 20px auto;
+        }
+        
+        .section-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .event-details {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 10px;
+            padding: 40px 30px;
+            width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        
+        .event-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .event-card h4 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-family: 'Alex Brush', cursive;
+        }
+        
+        .event-card p {
+            margin: 10px 0;
+            font-weight: 300;
+        }
+        
+        .event-card i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .dress-code, .child-free {
+            background: linear-gradient(rgba(245, 245, 240, 0.9), rgba(245, 245, 240, 0.9)),
+                        url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 100px 0;
+        }
+
+        .child-free {
+            background: linear-gradient(rgba(245, 245, 240, 0.9), rgba(245, 245, 240, 0.9)),
+                        url('https://images.unsplash.com/photo-1549488349-8131379c6d36?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .dress-code-content, .child-free-content {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        
+        .dress-code-content.visible, .child-free-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gift-section {
+            background: var(--primary-color);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .gift-container {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+        
+        .gift-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gift-link {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+        
+        .gift-link:hover {
+            background: transparent;
+            color: white;
+        }
+        
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 50px 0;
+            text-align: center;
+        }
+        
+        .footer-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .rsvp-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid var(--secondary-color);
+        }
+        
+        .rsvp-btn:hover {
+            background: transparent;
+            color: var(--secondary-color);
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Animaciones al hacer scroll */
+        @media (prefers-reduced-motion: no-preference) {
+            .animate-on-scroll {
+                opacity: 0;
+                transition: opacity 0.6s, transform 0.6s;
+            }
+            
+            .fade-in {
+                opacity: 1;
+                transform: translateY(0) !important;
+            }
+            
+            .slide-up {
+                transform: translateY(30px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+            
+            h2 {
+                font-size: 2.5rem;
+            }
+            
+            .countdown-box {
+                padding: 15px 10px;
+                min-width: 70px;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .event-card {
+                width: 100%;
+                margin: 0 20px;
+            }
+            
+            .dress-code-content, .child-free-content {
+                padding: 30px 20px;
+            }
+            
+            .seal-container {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="seal-overlay" id="sealOverlay">
+        <div class="seal-container">
+            <div class="seal" id="seal">
+                </div>
+        </div>
+    </div>
+    
+    <div id="mainContent" class="hidden">
+        <header>
+            <div class="header-content">
+                <h1>Julio & Cinthya</h1>
+                <div class="date-display">20 DE DICIEMBRE DE 2025</div>
+                
+                <div class="countdown" id="countdown">
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="days">00</div>
+                        <div class="countdown-label">Días</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="hours">00</div>
+                        <div class="countdown-label">Horas</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="minutes">00</div>
+                        <div class="countdown-label">Minutos</div>
+                    </div>
+                    <div class="countdown-box">
+                        <div class="countdown-number" id="seconds">00</div>
+                        <div class="countdown-label">Segundos</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <section id="ceremony">
+            <div class="container">
+                <div class="section-title">
+                    <div class="section-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h2>Nuestra Ceremonia</h2>
+                    <p>Nos uniremos en matrimonio ante Dios y nuestros seres queridos</p>
+                </div>
+                
+                <div class="event-details">
+                    <div class="event-card animate-on-scroll slide-up">
+                        <i class="fas fa-ring"></i>
+                        <h4>Ceremonia Religiosa</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> Parroquia de San Juan Bautista</p>
+                        <p><i class="fas fa-address-card"></i> Av. Principal #123, Colonia Centro</p>
+                        <p><i class="fas fa-clock"></i> 17:00 horas</p>
+                    </div>
+                    
+                    <div class="event-card animate-on-scroll slide-up" style="transition-delay: 0.2s">
+                        <i class="fas fa-glass-cheers"></i>
+                        <h4>Recepción</h4>
+                        <p><i class="fas fa-map-marker-alt"></i> Salón Los Jardines</p>
+                        <p><i class="fas fa-address-card"></i> Blvd. de las Flores #456</p>
+                        <p><i class="fas fa-clock"></i> 19:30 horas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="dress-code">
+            <div class="container">
+                <div class="dress-code-content animate-on-scroll slide-up">
+                    <div class="section-icon">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h2>Código de Vestimenta</h2>
+                    <p>Formal Elegante</p>
+                    
+                    <div style="display: flex; justify-content: center; gap: 40px; margin: 40px 0; flex-wrap: wrap;">
+                        <div>
+                            <i class="fas fa-male" style="font-size: 2rem;"></i>
+                            <p>Traje oscuro<br>Corbata opcional</p>
+                        </div>
+                        <div>
+                            <i class="fas fa-female" style="font-size: 2rem;"></i>
+                            <p>Vestido largo o semi-largo<br>Tonos sobrios</p>
+                        </div>
+                    </div>
+                    
+                    <p><small>Por favor evitar colores blancos, crema o tonos similares al vestido de la novia</small></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="child-free">
+            <div class="container">
+                <div class="child-free-content animate-on-scroll slide-up">
+                    <div class="section-icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h2>Cena de Adultos</h2>
+                    <p>Con mucho amor y por razones logísticas, te pedimos que nos acompañes en esta celebración sin niños. </p>
+                    <p>Esperamos que esta sea una oportunidad para que disfrutes de una noche sin preocupaciones.</p>
+                </div>
+            </div>
+        </section>
+        <section class="gift-section">
+            <div class="container">
+                <div class="gift-container animate-on-scroll slide-up">
+                    <div class="section-icon">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h2>Mesa de Regalos</h2>
+                    <p>Tu presencia es el mejor regalo que podríamos recibir</p>
+                    <p>Sin embargo, si deseas hacernos un obsequio, hemos preparado una mesa de regalos en:</p>
+                    
+                    <a href="https://www.liverpool.com.mx" class="gift-link" target="_blank">
+                        <i class="fas fa-store"></i> Liverpool - Mesa de Regalos
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <div class="container">
+                <div class="footer-text">
+                    <p>Con amor, Julio y Cinthya</p>
+                    <p>Esperamos compartir este día tan especial contigo</p>
+                </div>
+                
+                <a href="mailto:confirmacion@julioycinthya.com" class="rsvp-btn">
+                    Confirmar Asistencia
+                </a>
+                
+                <p style="margin-top: 40px; font-size: 0.9rem;">
+                    Por favor confirmar antes del 1 de noviembre de 2025
+                </p>
+            </div>
+        </footer>
+        
+        <div class="music-control" onclick="toggleMusic()">
+            <i class="fas fa-music"></i>
+        </div>
+        
+        <audio id="wedding-music" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3" type="audio/mpeg">
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+    </div>
+    
+    <script>
+        // Animación del sello
+        const sealOverlay = document.getElementById('sealOverlay');
+        const seal = document.getElementById('seal');
+        const mainContent = document.getElementById('mainContent');
+        
+        sealOverlay.addEventListener('click', function() {
+            seal.classList.add('seal-open');
+            
+            setTimeout(() => {
+                sealOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    sealOverlay.style.display = 'none';
+                    mainContent.classList.remove('hidden');
+                    
+                    // Iniciar animaciones scroll después de abrir el sello
+                    checkScroll();
+                }, 500);
+            }, 1500);
+        });
+        
+        // Contador regresivo
+        function updateCountdown() {
+            const weddingDate = new Date("December 20, 2025 17:00:00").getTime();
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("days").innerHTML = days.toString().padStart(2, "0");
+            document.getElementById("hours").innerHTML = hours.toString().padStart(2, "0");
+            document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, "0");
+            document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, "0");
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Control de música
+        const audio = document.getElementById('wedding-music');
+        let isPlaying = false;
+        
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+                document.querySelector('.music-control i').className = 'fas fa-music';
+            } else {
+                audio.play();
+                isPlaying = true;
+                document.querySelector('.music-control i').className = 'fas fa-pause';
+            }
+        }
+        
+        // Animaciones al hacer scroll
+        function checkScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('fade-in');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+    </script>
+</body>
+</html>

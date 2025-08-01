@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Boda - Julio & Cinthya</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Parisienne&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            font-family: 'Dancing Script', cursive;
+            color: #556B2F;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-paper.png');
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .invitation-card {
+            background: linear-gradient(135deg, #F5F5DC, #E6E6C5);
+            border: 2px solid #6B8E23;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .invitation-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background: linear-gradient(90deg, #6B8E23, #556B2F, #6B8E23);
+        }
+        
+        h1 {
+            font-family: 'Parisienne', cursive;
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            color: #556B2F;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            font-family: 'Parisienne', cursive;
+            font-size: 2em;
+            margin: 20px 0;
+            color: #6B8E23;
+        }
+        
+        p {
+            font-size: 1.3em;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-box {
+            background-color: #556B2F;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            min-width: 70px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .countdown-number {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        
+        .countdown-label {
+            font-size: 0.9em;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #6B8E23, transparent);
+            margin: 30px 0;
+        }
+        
+        .details {
+            text-align: left;
+            margin: 30px 0;
+            padding: 0 20px;
+        }
+        
+        .details h3 {
+            font-family: 'Parisienne', cursive;
+            font-size: 1.8em;
+            color: #6B8E23;
+            margin-bottom: 10px;
+        }
+        
+        .gift-section {
+            background-color: rgba(107, 142, 35, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .gift-link {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #6B8E23;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .gift-link:hover {
+            background-color: #556B2F;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            font-size: 1.1em;
+            color: #6B8E23;
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(107, 142, 35, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .invitation-card {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+            
+            p {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="invitation-card">
+            <h1>Julio & Cinthya</h1>
+            <p>Con gran alegría en nuestros corazones</p>
+            <p>Tenemos el honor de invitarte a celebrar</p>
+            <p>Nuestra unión en el sagrado sacramento del matrimonio</p>
+            
+            <div class="divider"></div>
+            
+            <h2>20 de Diciembre de 2025</h2>
+            
+            <div class="countdown" id="countdown">
+                <div class="countdown-box">
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Días</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Horas</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutos</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Segundos</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="details">
+                <h3>Ceremonia Religiosa</h3>
+                <p>Parroquia de San Juan Bautista</p>
+                <p>Av. Principal #123, Colonia Centro</p>
+                <p>17:00 horas</p>
+                
+                <h3>Recepción</h3>
+                <p>Salón Los Jardines</p>
+                <p>Blvd. de las Flores #456</p>
+                <p>19:30 horas</p>
+                
+                <h3>Código de Vestimenta</h3>
+                <p>Elegante: Traje para caballeros y vestido para damas</p>
+            </div>
+            
+            <div class="gift-section">
+                <h3>Mesa de Regalos</h3>
+                <p>Tu presencia es nuestro mejor regalo, pero si deseas obsequiarnos algo,</p>
+                <p>nos haría muy felices que participes en nuestra mesa de regalos:</p>
+                <a href="https://www.liverpool.com.mx" class="gift-link" target="_blank">Liverpool - Mesa de Regalos</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>¡Esperamos compartir este día tan especial contigo!</p>
+            <p>Confirmación de asistencia antes del 1 de noviembre de 2025</p>
+        </div>
+    </div>
+    
+    <div class="music-control" onclick="toggleMusic()">
+        ♫
+    </div>
+    
+    <audio id="wedding-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+    
+    <script>
+        // Contador regresivo
+        function updateCountdown() {
+            const weddingDate = new Date("December 20, 2025 17:00:00").getTime();
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            document.getElementById("days").innerHTML = days.toString().padStart(2, "0");
+            document.getElementById("hours").innerHTML = hours.toString().padStart(2, "0");
+            document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, "0");
+            document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, "0");
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Control de música
+        const audio = document.getElementById("wedding-music");
+        let isPlaying = false;
+        
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                isPlaying = false;
+            } else {
+                audio.play();
+                isPlaying = true;
+            }
+        }
+    </script>
+</body>
+</html>
